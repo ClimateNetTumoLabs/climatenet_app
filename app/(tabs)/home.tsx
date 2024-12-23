@@ -18,7 +18,7 @@ export default function Home() {
       .then((response) => response.json())
       .then((data) => {
         setLocations(data);
-        setSelectedLocationId(data[0]?.generated_id); // Set the first location's ID as default
+        setSelectedLocationId(data[0]?.generated_id); 
       })
       .catch((error) => console.error('Error fetching locations:', error));
   }, []);

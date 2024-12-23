@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
+import LinearBar from './LinearBar';
 
 export default function AirPollutionCard({ latestData }) {
   return (
@@ -10,7 +11,9 @@ export default function AirPollutionCard({ latestData }) {
     </ThemedText>
 
       <ThemedText style={styles.pollutionStatus}>PM2.5: {latestData.pm2_5} μm</ThemedText>
+      <LinearBar air_quality={latestData.pm2_5} datetime={latestData.time} />
       <View style={styles.metrics}>
+
         <ThemedText style={styles.metric}>UV: {latestData.uv}</ThemedText>
         <ThemedText style={styles.metric}>LIGHT: {latestData.lux} Lx</ThemedText>
         <ThemedText style={styles.metric}>RAIN: {latestData.rain} mm</ThemedText>
