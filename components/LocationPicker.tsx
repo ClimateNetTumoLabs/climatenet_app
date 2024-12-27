@@ -6,13 +6,14 @@ export default function LocationPicker({ locations, selectedLocationId, onLocati
     
   return (
     <Picker
-      mode="dropdown"
+      mode={"dropdown"}
       selectedValue={selectedLocationId}
       style={styles.picker}
       onValueChange={onLocationChange}
     >
       {locations.map((location) => (
         <Picker.Item
+          style={styles.item}
           key={location.generated_id}
           label={`${location.name} (${location.parent_name})`}
           value={location.generated_id}
@@ -24,7 +25,14 @@ export default function LocationPicker({ locations, selectedLocationId, onLocati
 
 const styles = StyleSheet.create({
   picker: {
-    height: 50,
+    height: 5,
     width: 200,
+    padding:5,
+    margin:1,
+
   },
+  item:{
+    color:'red',
+    
+  }
 });

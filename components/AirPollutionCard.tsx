@@ -1,36 +1,51 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import ThemedCard from '@/components/ThemedCard';
 import { ThemedText } from '@/components/ThemedText';
 import LinearBar from './LinearBar';
 
 export default function AirPollutionCard({ latestData }) {
   return (
-    <View style={styles.pollutionCard}>
-    <ThemedText style={styles.pollutionHeader}>
-    Air Pollution (PM2.5) <ThemedText style={styles.date}>{new Date(latestData.time).toLocaleString()}</ThemedText>
-    </ThemedText>
-
-      <ThemedText style={styles.pollutionStatus}>PM2.5: {latestData.pm2_5} μm</ThemedText>
-      <LinearBar air_quality={latestData.pm2_5} datetime={latestData.time} />
-      <View style={styles.metrics}>
-
-        <ThemedText style={styles.metric}>UV: {latestData.uv}</ThemedText>
-        <ThemedText style={styles.metric}>LIGHT: {latestData.lux} Lx</ThemedText>
-        <ThemedText style={styles.metric}>RAIN: {latestData.rain} mm</ThemedText>
-        <ThemedText style={styles.metric}>PRESSURE: {latestData.pressure} hPa</ThemedText>
+    <ThemedCard>
+      <View style={styles.header}>
+        <ThemedText style={styles.pollutionHeader}>Air Pollution (PM2.5)</ThemedText>
+       
       </View>
-    </View>
+
+      <ThemedText style={styles.pollutionStatus}>
+        PM2.5: {latestData.pm2_5} μm
+      </ThemedText>
+
+      <LinearBar air_quality={latestData.pm2_5} datetime={new Date(latestData.time).toLocaleString()} />
+
+      <View style={styles.divider} />
+
+      <View style={styles.metrics}>
+        <View style={styles.metricRow}>
+          <ThemedText style={styles.metric}>🌞 UV: {latestData.uv}</ThemedText>
+          <ThemedText style={styles.metric}>💡 Light: {latestData.lux} Lx</ThemedText>
+        </View>
+        <View style={styles.metricRow}>
+          <ThemedText style={styles.metric}>🌧️ Rain: {latestData.rain} mm</ThemedText>
+          <ThemedText style={styles.metric}>
+            🌡️ Pressure: {latestData.pressure} hPa
+          </ThemedText>
+        </View>
+      </View>
+    </ThemedCard>
   );
 }
 
 const styles = StyleSheet.create({
-  pollutionCard: {
-    padding: 15,
-    borderRadius: 10,
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
   },
   pollutionHeader: {
     fontSize: 18,
-    marginBottom: 10,
+    fontWeight: 'bold',
   },
   date: {
     fontSize: 14,
@@ -40,11 +55,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
+  divider: {
+    height: 1,
+    backgroundColor: '#ddd',
+    marginVertical: 10,
+  },
   metrics: {
     marginTop: 10,
   },
+  metricRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
   metric: {
     fontSize: 14,
-    marginBottom: 5,
   },
 });

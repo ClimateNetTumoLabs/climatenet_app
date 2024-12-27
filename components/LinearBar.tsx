@@ -55,14 +55,7 @@ export default function LinearBar({ air_quality, datetime }) {
       <View style={styles.header}>
         {/* <Text style={styles.title}>{'linerStatusBar.airQualityTitle'}</Text> */}
         <ThemedText style={styles.datetime}>
-          {new Date(datetime.time).toLocaleString('en-GB', {
-            hour12: false,
-            hour: 'numeric',
-            minute: 'numeric',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-          })}
+          {datetime}
         </ThemedText>
       </View>
       <View style={styles.statusContainer}>
