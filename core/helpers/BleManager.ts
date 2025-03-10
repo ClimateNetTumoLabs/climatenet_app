@@ -1,8 +1,9 @@
 import { BleManager } from 'react-native-ble-plx';
 import { Buffer } from 'buffer';
 
-const SERVICE_UUID = "0001";
-const CHARACTERISTIC_UUID = "87654321-4321-6789-4321-098765abcdef";
+const SERVICE_UUID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+// const CHARACTERISTIC_UUID = "12345678-1234-5678-1234-56789abcdef2";
+const CHARACTERISTIC_UUID = "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
 
 const manager = new BleManager();
 
@@ -16,7 +17,7 @@ export const startScan = (setScannedDevices) => {
                 console.error(error);
                 return;
             }
-            console.log(device.name);
+            console.log(device?.name ,device?.serviceUUIDs);
             
             if (device.name) {
                 // connectToDevice(device,setScannedDevices)
@@ -39,11 +40,14 @@ export const stopScan = () => {
 export const connectToDevice = async (device, setConnectedDevice) => {
     try {
         stopScan();
-        console.log("Connecting to device...");
+        console.log("Connecting to device...",device?.serviceUUIDs);
         const connected = await manager.connectToDevice(device.id);
-        console.log("charrr",manager.discoverAllServicesAndCharacteristicsForDevice(device.id))
-        await connected.discoverAllServicesAndCharacteristics();
-        sendMessage(connected,"hello\n")
+        
+        // console.log("charrr",await manager.discoverAllServicesAndCharacteristicsForDevice(device.id))
+      const serv =   await connected.discoverAllServicesAndCharacteristics();
+        console.log("services---: ",serv);
+        
+        sendMessage(connected,"helllo22323\r\n")
         setConnectedDevice((prev)=>
         {
             console.log("debug_____++++:",connected)
@@ -52,6 +56,7 @@ export const connectToDevice = async (device, setConnectedDevice) => {
                 return [connected]
             return prev
         });
+
         console.log("Connected to ESP32:", connected.id);
         return connected;
     } catch (error) {
@@ -61,6 +66,8 @@ export const connectToDevice = async (device, setConnectedDevice) => {
 };
 
 export const sendMessage = async (connectedDevice, message) => {
+    // console.log("debugg: ",connectedDevice.isConnected);
+    
     if (!connectedDevice) {
         console.error("Error: No device connected.");
         return false;
@@ -82,9 +89,51 @@ export const sendMessage = async (connectedDevice, message) => {
 };
 
 export const disconnectDevice = async (connectedDevice, setConnectedDevice) => {
+    
     if (connectedDevice) {
+        console.log("mtav!!!");
+        await manager.cancelDeviceConnection(connectedDevice?.id)
         await connectedDevice.cancelConnection();
-        setConnectedDevice(null);
+        setConnectedDevice([]);
         console.log("Disconnected from ESP32");
     }
 };
+
+
+// import RNBluetoothClassic from 'react-native-bluetooth-classic';
+// const RNBluetoothClassic = require('react-native-bluetooth-classic').default;
+// export async function scanDevices(setScannedDevices) {
+//     console.log("RNBluetoothClassic:", RNBluetoothClassic);
+//     console.log("Available functions:", Object.keys(RNBluetoothClassic));
+//     try {
+//         const devices = await RNBluetoothClassic.list();
+//         console.log("Discovered Devices:", devices);
+//         setScannedDevices(devices);
+//     } catch (error) {
+//         console.error("Error scanning:", error);
+//     }
+// }
+
+// export async function connectToDevice(device, setConnectedDevice) {
+//     try {
+//         const connection = await device.connect();
+//         console.log("Connected to Raspberry Pi:", connection);
+//         setConnectedDevice(connection);
+//     } catch (error) {
+//         console.error("Connection error:", error);
+//     }
+// }
+
+// export async function sendMessage(connectedDevice, message) {
+//     if (!connectedDevice) {
+//         console.error("No device connected");
+//         return;
+//     }
+
+//     try {
+//         await connectedDevice.write(message + "\n");
+//         console.log("Message sent:", message);
+//     } catch (error) {
+//         console.error("Error sending message:", error);
+//     }
+// }

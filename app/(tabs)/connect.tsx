@@ -18,7 +18,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { DeviceList } from '@/components/DeviceList';
 import { PanGestureHandler } from 'react-native-gesture-handler'; // Import PanGestureHandler
 import { GestureHandlerRootView } from 'react-native-gesture-handler'; // Import GestureHandlerRootView
-import { connectToDevice, disconnectDevice, startScan, stopScan } from '@/core/helpers/BleManager';
+import { connectToDevice, disconnectDevice, scanDevices, startScan, stopScan } from '@/core/helpers/BleManager';
 import { requestBluetoothPermissions } from '@/core/helpers/BlePermissions';
 
 // iOS Bluetooth permissions (Info.plist)
@@ -51,8 +51,16 @@ const App = () => {
   useEffect(() => {
       // Request Bluetooth permissions on mount
       requestBluetoothPermissions();
+    //   scanDevices((devices) => {
+    //     setScannedDevices(devices);
 
-      // Start scanning automatically
+    //     // If a new device is found, show the popup and update it
+    //     if (devices.length > 0) {
+    //         setFoundDevice(devices[0]); // Show the first found device
+    //         setPopupVisible(true);
+    //     }
+    // })
+      // Start  scanning automatically
       startScan((devices) => {
           setScannedDevices(devices);
 
@@ -66,6 +74,24 @@ const App = () => {
       // Stop scanning when the component unmounts
       return () => stopScan();
   }, []);
+
+const TX_UUID = "6e400003-b5a3-f393-e0a9-e50e24dcca9e"
+
+  useEffect(() => {
+    const listener = BleManagerEmitter.addListener('BleManagerDidUpdateValueForCharacteristic', (args) => {
+        // if (args.peripheral === foundDevice?.id && args.characteristic === TX_UUID) {
+            Alert.alert('Message Received', args.value);
+        // }
+    });
+
+    return () => {
+        listener.remove();
+        if (foundDevice) {
+            BleManager.stopNotification(foundDevice.id, 'YOUR_SERVICE_UUID', 'YOUR_CHARACTERISTIC_UUID');
+        }
+    };
+}, [foundDevice]);
+
 
   const handleConnect = (device) => {
       // Stop scanning when the user clicks "Connect"
