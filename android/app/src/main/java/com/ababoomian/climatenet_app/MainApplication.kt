@@ -1,4 +1,4 @@
-package com.example.climatenet_app
+package com.ababoomian.climatenet_app
 
 import android.app.Application
 import android.content.res.Configuration

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 
-export default Input = ({ label, name, rules, defaultValue = '', secureTextEntry }) => {
+const Input = ({ label, name, rules, defaultValue = '', secureTextEntry }) => {
 
     const { formState: { errors } } = useFormContext()
 
@@ -41,3 +41,5 @@ const styles = StyleSheet.create({
         color: 'black',
     }
 })
+
+export default Input

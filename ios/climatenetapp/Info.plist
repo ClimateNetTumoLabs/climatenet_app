@@ -27,14 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>myapp</string>
-          <string>com.example.climatenet.app</string>
-        </array>
-      </dict>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>exp+climatenetapp</string>
+          <string>com.ababoomian.climatenet-app</string>
         </array>
       </dict>
     </array>
@@ -51,14 +44,8 @@
       <key>NSAllowsLocalNetworking</key>
       <true/>
     </dict>
-    <key>NSBluetoothAlwaysUsageDescription</key>
-    <string>We need access to Bluetooth to scan for devices.</string>
-    <key>NSBluetoothPeripheralUsageDescription</key>
-    <string>We need Bluetooth to connect to devices.</string>
-    <key>NSUserActivityTypes</key>
-    <array>
-      <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
-    </array>
+    <key>NSFaceIDUsageDescription</key>
+    <string>Allow $(PRODUCT_NAME) to access your Face ID biometric data.</string>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>
@@ -82,7 +69,7 @@
       <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
     <key>UIUserInterfaceStyle</key>
-    <string>Automatic</string>
+    <string>Light</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
   </dict>
