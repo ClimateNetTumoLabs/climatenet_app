@@ -5,6 +5,9 @@ import Login from "./Screens/Login";
 import Products from "./Screens/Products";
 import Register from "./Screens/Register";
 import Connect from "./Screens/Connect";
+import StartScreen from "./Screens/StartScreen";
+import LoginScreen from "./Screens/LoginScreen";
+import RegisterScreen from "./Screens/RegisterScreen";
 
 
 const My_Stack = createNativeStackNavigator();
@@ -23,9 +26,10 @@ export const Layout = () =>{
           <My_Stack.Screen name="Connect" options={{headerShown : false}} component={Connect} />
         ) : (
             <>
+            <My_Stack.Screen name="StartScreen" options={{ headerShown: false}} component={StartScreen} />
+            <My_Stack.Screen name="LoginScreen" options={{ headerShown: false}} component={LoginScreen} />
+            <My_Stack.Screen name="RegisterScreen" options={{ headerShown: false}} component={RegisterScreen} />
             <My_Stack.Screen name="Connect" component={Connect} />
-            <My_Stack.Screen name="Login" options={{ headerShown: false}} component={Login} />
-            <My_Stack.Screen name="Register" options={{ headerShown: false}} component={Register} />
           </>
         )}
       </My_Stack.Navigator>

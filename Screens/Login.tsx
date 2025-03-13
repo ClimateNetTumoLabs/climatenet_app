@@ -1,7 +1,7 @@
 import { StyleSheet, View, Image, StatusBar, Text, Pressable, Alert, ScrollView, Dimensions } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import logo from '@/assets/images/pngwing.com.png';
+// import logo from '@/assets/images/coffee.png';
 import Input from '@/components/Input';
 import Btn from '@/components/Btn';
 import { loginAPI } from '@/Services/allAPI';
@@ -23,7 +23,8 @@ const Login = ({ navigation }) => {
             {/* <LinearGradient colors={["#000000", "#434343"]} style={styles.container}> */}
                 {/* Logo Section */}
                 <View style={styles.top}>
-                    <Image source={logo} style={styles.logo} />
+                    {/* <Image source={logo} style={styles.logo} /> */}
+                    <ThemedText style={styles.loginText}>ClimateNet</ThemedText>
                 </View>
                 
                 {/* Login Form */}
