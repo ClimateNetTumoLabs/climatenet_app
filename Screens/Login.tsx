@@ -14,7 +14,7 @@ const Login = ({ navigation }) => {
     const formMethods = useForm();
 
     const handleLogin = (data) => {
-        navigation.navigate('Homescreen');
+        navigation.navigate("Connect");
     };
 
     return (
